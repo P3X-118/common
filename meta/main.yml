@@ -1,0 +1,7 @@
+---
+galaxy_info:
+  role_name: common
+  author: oneill
+  description: Install common tools across distros (apt/dnf/yum/zypper/apk) with Ubuntu Mesa tweaks
+  min_ansible_version: "2.14"
+dependencies: []

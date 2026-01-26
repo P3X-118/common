@@ -1,0 +1,29 @@
+---
+- name: Install common packages on RedHat-family
+  become: true
+  ansible.builtin.package:
+    name:
+      - wget
+      - net-tools
+      - bzip2
+      - tar
+      - vim
+      - hostname
+      - bc
+    state: present
+
+- name: Install procps package (varies slightly)
+  become: true
+  ansible.builtin.package:
+    name: procps-ng
+    state: present
+  when: ansible_distribution in ["Fedora", "RedHat", "Rocky", "AlmaLinux", "OracleLinux"]
+
+# vulkan-tools: installed in most branches of the script except rhel9 branch.
+- name: Install vulkan-tools when available/desired
+  become: true
+  ansible.builtin.package:
+    name: vulkan-tools
+    state: present
+  when: not (ansible_distribution == "RedHat" and ansible_distribution_major_version | int == 9)
+  ignore_errors: true

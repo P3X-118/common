@@ -1,0 +1,60 @@
+---
+- name: Update apt cache
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+# tzdata noninteractive + UTC timezone like the script
+- name: Set timezone to UTC (or configured)
+  become: true
+  community.general.timezone:
+    name: "{{ common_tools_timezone }}"
+  ignore_errors: true
+
+- name: Ensure tzdata installed (noninteractive)
+  become: true
+  ansible.builtin.apt:
+    name: tzdata
+    state: present
+
+- name: Install common packages (Debian-family)
+  become: true
+  ansible.builtin.apt:
+    name:
+      - vim
+      - wget
+      - net-tools
+      - locales
+      - bzip2
+      - wmctrl
+      - mesa-utils
+      - bc
+      - vulkan-tools
+    state: present
+
+# software-properties-common is skipped in the script for kali-rolling & trixie;
+# we only need it when adding PPAs (Ubuntu < 24.04 block installs it as needed).
+- name: Install software-properties-common when not Kali-rolling and not Debian trixie
+  become: true
+  ansible.builtin.apt:
+    name: software-properties-common
+    state: present
+  when:
+    - ansible_distribution != "Kali"
+    - not (ansible_distribution == "Debian" and ansible_distribution_release == "trixie")
+
+- name: Ensure openssh-client on Ubuntu
+  become: true
+  ansible.builtin.apt:
+    name: openssh-client
+    state: present
+    install_recommends: false
+  when: ansible_distribution == "Ubuntu"
+
+- name: Generate locale
+  become: true
+  community.general.locale_gen:
+    name: "{{ common_tools_locale }}"
+    state: present
+  ignore_errors: true

@@ -1,0 +1,23 @@
+---
+- name: Install common packages on Alpine
+  become: true
+  community.general.apk:
+    name:
+      - ca-certificates
+      - curl
+      - gcompat
+      - grep
+      - iproute2
+      - libgcc
+      - mcookie
+      - net-tools
+      - openssh-client
+      - openssl
+      - shadow
+      - sudo
+      - tar
+      - wget
+      - bc
+      - vulkan-tools
+    state: present
+    update_cache: true
