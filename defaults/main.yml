@@ -1,6 +1,6 @@
 ---
 # Locale/timezone behavior (applies mainly to Debian/Ubuntu path like the script)
-common_tools_timezone: "Etc/UTC"
+common_tools_timezone: "UTC"
 common_tools_locale: "en_US.UTF-8"
 
 # Ubuntu Mesa update behavior (script adds Kisak PPA on Ubuntu < 24.04)
