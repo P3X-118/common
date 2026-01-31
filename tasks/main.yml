@@ -10,30 +10,30 @@
         - "{{ role_path }}/tasks"
 
 # Ubuntu-specific post steps (Mesa PPA upgrade OR remove ubuntu user on 24.04)
-- name: Ubuntu < 24.04 - add Kisak Mesa PPA and full upgrade
-  when:
-    - ansible_distribution == "Ubuntu"
-    - common_tools_enable_kisak_mesa_ppa | bool
-    - ansible_distribution_version is version('24.04', '<')
-  block:
-    - name: Ensure add-apt-repository tooling is present
-      ansible.builtin.apt:
-        name: software-properties-common
-        state: present
-        update_cache: true
+#- name: Ubuntu < 24.04 - add Kisak Mesa PPA and full upgrade
+  #when:
+    #- ansible_distribution == "Ubuntu"
+    #- common_tools_enable_kisak_mesa_ppa | bool
+    #- ansible_distribution_version is version('24.04', '<')
+  #block:
+    #- name: Ensure add-apt-repository tooling is present
+      #ansible.builtin.apt:
+        #name: software-properties-common
+        #state: present
+        #update_cache: true
 
-    - name: Add Kisak Mesa PPA
-      ansible.builtin.apt_repository:
-        repo: "ppa:kisak/turtle"
-        state: present
+    #- name: Add Kisak Mesa PPA
+      #ansible.builtin.apt_repository:
+        #repo: "ppa:kisak/turtle"
+        #state: present
 
-    - name: Update apt cache
-      ansible.builtin.apt:
-        update_cache: true
+    #- name: Update apt cache
+      #ansible.builtin.apt:
+        #update_cache: true
 
-    - name: Full upgrade (equivalent to apt full-upgrade -y)
-      ansible.builtin.apt:
-        upgrade: full
+    #- name: Full upgrade (equivalent to apt full-upgrade -y)
+      #ansible.builtin.apt:
+        #upgrade: full
 
 - name: Ubuntu 24.04 - remove ubuntu user and home
   when:
