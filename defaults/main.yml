@@ -4,10 +4,10 @@ common_tools_timezone: "UTC"
 common_tools_locale: "en_US.UTF-8"
 
 # Ubuntu Mesa update behavior (script adds Kisak PPA on Ubuntu < 24.04)
-common_tools_enable_kisak_mesa_ppa: true
+common_tools_enable_kisak_mesa_ppa: false
 
 # Ubuntu 24.04 behavior (script deletes ubuntu user)
-common_tools_remove_ubuntu_user_on_2404: true
+common_tools_remove_ubuntu_user_on_2404: false
 
 # Parrot OS backports target equivalent (script uses -t lory-backports)
 # There isn't a perfect 1:1 in Ansible apt, but we can add an apt repo or pin.
